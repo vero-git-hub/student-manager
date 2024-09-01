@@ -1,5 +1,8 @@
 package org.example.studentmanager.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,9 +14,20 @@ public class Student {
 
     @Id
     private String id;
+
+    @NotBlank(message = "Name is mandatory")
+    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
+
+    @NotBlank(message = "Contact details are mandatory")
+    @Pattern(regexp = ".+@.+\\..+", message = "Contact details should be a valid email address")
     private String contactDetails;
+
+    @NotBlank(message = "Address is mandatory")
     private String address;
+
+    @NotBlank(message = "Pincode is mandatory")
+    @Pattern(regexp = "\\d{5}", message = "Pincode must be a 5-digit number")
     private String pincode;
 
     public Student() {}

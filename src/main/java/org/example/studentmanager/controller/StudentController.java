@@ -1,5 +1,6 @@
 package org.example.studentmanager.controller;
 
+import jakarta.validation.Valid;
 import org.example.studentmanager.exception.ResourceNotFoundException;
 import org.example.studentmanager.model.Student;
 import org.example.studentmanager.service.StudentService;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author vero-git-hub
@@ -36,23 +39,25 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student addStudent(@RequestBody Student student) {
+    public Student addStudent(@Valid @RequestBody Student student) {
         return studentService.addStudent(student);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable String id, @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(@PathVariable String id, @Valid @RequestBody Student student) {
         return studentService.getStudentById(id)
                 .map(existingStudent -> ResponseEntity.ok(studentService.updateStudent(id, student)))
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
+    public ResponseEntity<Map<String, String>> deleteStudent(@PathVariable String id) {
         return studentService.getStudentById(id)
                 .map(existingStudent -> {
                     studentService.deleteStudent(id);
-                    return ResponseEntity.ok().<Void>build();
+                    Map<String, String> response = new HashMap<>();
+                    response.put("message", "Student with id " + id + " was successfully deleted.");
+                    return ResponseEntity.ok(response);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
