@@ -1,5 +1,6 @@
 package org.example.studentmanager.controller;
 
+import org.example.studentmanager.exception.ResourceNotFoundException;
 import org.example.studentmanager.model.Student;
 import org.example.studentmanager.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class StudentController {
     public ResponseEntity<Student> getStudentById(@PathVariable String id) {
         return studentService.getStudentById(id)
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
 
     @PostMapping
@@ -43,7 +44,7 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@PathVariable String id, @RequestBody Student student) {
         return studentService.getStudentById(id)
                 .map(existingStudent -> ResponseEntity.ok(studentService.updateStudent(id, student)))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
 
     @DeleteMapping("/{id}")
@@ -53,6 +54,6 @@ public class StudentController {
                     studentService.deleteStudent(id);
                     return ResponseEntity.ok().<Void>build();
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found with id: " + id));
     }
 }
