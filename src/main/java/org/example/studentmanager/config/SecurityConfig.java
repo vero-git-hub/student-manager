@@ -18,13 +18,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Отключение CSRF для простоты
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html").permitAll() // Разрешить доступ к Swagger без авторизации
-                        .requestMatchers("/hello").permitAll() // Разрешить доступ без авторизации к /hello
-                        .anyRequest().authenticated() // Все остальные запросы требуют аутентификации
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/api/students/**").permitAll()
+                        .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults()); // Включение формы авторизации по умолчанию
+                .formLogin(withDefaults());
 
         return http.build();
     }
