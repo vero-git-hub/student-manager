@@ -33,3 +33,4 @@ nbdist/
 *.class
 *.jar
 *.war
+.env
