@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import io.swagger.v3.oas.annotations.Operation;
 
 /**
  * @author vero-git-hub
@@ -26,6 +27,7 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Operation(summary = "Authenticate user and generate JWT", description = "Authenticates the user based on username and password, then generates a JWT token.")
     @PostMapping("/authenticate")
     public Map<String, String> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
         authenticationManager.authenticate(
