@@ -1,5 +1,6 @@
 package org.example.studentmanager.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,21 +14,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Student {
 
     @Id
+    @Schema(description = "Unique identifier of the student", example = "6123456789abcdef01234567")
     private String id;
 
     @NotBlank(message = "Name is mandatory")
     @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @Schema(description = "Name of the student", example = "John Doe")
     private String name;
 
     @NotBlank(message = "Contact details are mandatory")
     @Pattern(regexp = ".+@.+\\..+", message = "Contact details should be a valid email address")
+    @Schema(description = "Contact details of the student", example = "john@example.com")
     private String contactDetails;
 
     @NotBlank(message = "Address is mandatory")
+    @Schema(description = "Address of the student", example = "123 Main St")
     private String address;
 
     @NotBlank(message = "Pincode is mandatory")
     @Pattern(regexp = "\\d{5}", message = "Pincode must be a 5-digit number")
+    @Schema(description = "Postal code of the student's address", example = "12345")
     private String pincode;
 
     public Student() {}

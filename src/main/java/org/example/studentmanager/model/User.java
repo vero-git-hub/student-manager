@@ -1,5 +1,8 @@
 package org.example.studentmanager.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,8 +13,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
+    @Schema(description = "Unique identifier of the user", example = "6123456789abcdef01234567")
     private String id;
+
+    @NotNull
+    @Size(min = 4, max = 20)
+    @Schema(description = "Username of the user", example = "testuser")
     private String username;
+
+    @NotNull
+    @Size(min = 8)
+    @Schema(description = "Password of the user", example = "P@ssw0rd!")
     private String password;
 
     public String getId() {

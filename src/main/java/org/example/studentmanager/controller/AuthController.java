@@ -1,5 +1,6 @@
 package org.example.studentmanager.controller;
 
+import org.example.studentmanager.model.AuthRequest;
 import org.example.studentmanager.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
