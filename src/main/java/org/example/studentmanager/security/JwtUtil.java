@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +21,25 @@ import io.github.cdimascio.dotenv.Dotenv;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY;
+    private final String SECRET_KEY;
 
-    static {
-        Dotenv dotenv = Dotenv.load();
-        SECRET_KEY = dotenv.get("JWT_SECRET");
+    /**
+     * First, try to get the key via @Value("${jwt.secret}"),
+     * if the variable is empty, use Dotenv for local runs,
+     * and if the key is not found, throw an exception.
+     * @param secretKey for JWT token
+     */
+    public JwtUtil(@Value("${jwt.secret:}") String secretKey) {
+        if (secretKey.isEmpty()) {
+            Dotenv dotenv = Dotenv.load();
+            this.SECRET_KEY = dotenv.get("JWT_SECRET");
+
+            if (this.SECRET_KEY == null || this.SECRET_KEY.isEmpty()) {
+                throw new IllegalStateException("JWT_SECRET is not set!");
+            }
+        } else {
+            this.SECRET_KEY = secretKey;
+        }
     }
 
     private SecretKey getSignKey() {
