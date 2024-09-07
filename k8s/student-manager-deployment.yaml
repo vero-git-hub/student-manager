@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: student-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: student-manager
+  template:
+    metadata:
+      labels:
+        app: student-manager
+    spec:
+      containers:
+        - name: student-manager-app
+          image: localhost:5000/student-manager-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: jwt-secret
+            - name: SPRING_DATA_MONGODB_URI
+              value: "mongodb://mongodb-service:27017/studentdb"

@@ -35,3 +35,4 @@ nbdist/
 *.war
 .env
 /src/main/resources/application-test.properties
+/k8s/secret.yaml

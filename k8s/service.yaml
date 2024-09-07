@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: student-manager-service
+spec:
+  selector:
+    app: student-manager
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP
