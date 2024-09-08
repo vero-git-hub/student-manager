@@ -3,11 +3,14 @@ package org.example.studentmanager.controller;
 import org.example.studentmanager.model.User;
 import org.example.studentmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
+
+import java.util.Collections;
 
 /**
  * @author vero-git-hub
@@ -23,9 +26,9 @@ public class UserController {
 
     @Operation(summary = "Register a new user", description = "Registers a new user by encoding the password and saving the user to the database.")
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return "User registered successfully!";
+        return ResponseEntity.ok(Collections.singletonMap("message", "User registered successfully"));
     }
 }
