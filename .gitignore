@@ -36,3 +36,20 @@ nbdist/
 .env
 /src/main/resources/application-test.properties
 /k8s/secret.yaml
+
+# Angular specific
+node_modules/
+dist/
+out-tsc/
+.tmp/
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.node_repl_history
+jspm_packages/
+.stylelintcache
+coverage/
+.angular/
+/student-manager.tar
