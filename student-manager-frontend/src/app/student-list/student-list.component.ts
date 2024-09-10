@@ -6,7 +6,6 @@ import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 
-
 @Component({
   selector: 'app-student-list',
   standalone: true,
@@ -39,7 +38,17 @@ export class StudentListComponent implements OnInit {
   }
 
   deleteStudent(student: any): void {
-    console.log('Deleting student:', student);
+    if (confirm(`Are you sure you want to delete ${student.name}?`)) {
+      this.http.delete(`http://localhost:8080/api/students/${student.id}`).subscribe(
+        () => {
+          this.students = this.students.filter(s => s.id !== student.id);
+          alert('Student deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting student:', error);
+        }
+      );
+    }
   }
 
 }
