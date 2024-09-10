@@ -43,7 +43,6 @@ export class StudentListComponent implements OnInit {
       this.http.delete(`http://localhost:8080/api/students/${student.id}`).subscribe(
         () => {
           this.students = this.students.filter(s => s.id !== student.id);
-          alert('Student deleted successfully');
         },
         (error) => {
           console.error('Error deleting student:', error);

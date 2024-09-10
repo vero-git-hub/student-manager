@@ -1,17 +1,29 @@
 <h2>Add New Student</h2>
 
-<form (ngSubmit)="addStudent()">
+<form #studentForm="ngForm" (ngSubmit)="studentForm.valid && addStudent()">
   <label for="name">Name:</label>
-  <input id="name" [(ngModel)]="student.name" name="name" required>
+  <input type="text" id="name" [(ngModel)]="student.name" name="name" required minlength="2" maxlength="50">
+  <div *ngIf="studentForm.submitted && studentForm.controls['name']?.invalid" class="error">
+    Name must be between 2 and 50 characters.
+  </div>
 
   <label for="contactDetails">Contact Details:</label>
-  <input id="contactDetails" [(ngModel)]="student.contactDetails" name="contactDetails" required>
+  <input type="email" id="contactDetails" [(ngModel)]="student.contactDetails" name="contactDetails" required>
+  <div *ngIf="studentForm.submitted && studentForm.controls['contactDetails']?.invalid" class="error">
+    Please enter a valid email.
+  </div>
 
   <label for="address">Address:</label>
-  <input id="address" [(ngModel)]="student.address" name="address" required>
+  <input type="text" id="address" [(ngModel)]="student.address" name="address" required>
+  <div *ngIf="studentForm.submitted && studentForm.controls['address']?.invalid" class="error">
+    Address is required.
+  </div>
 
   <label for="pincode">Pincode:</label>
-  <input id="pincode" [(ngModel)]="student.pincode" name="pincode" required>
+  <input type="text" id="pincode" [(ngModel)]="student.pincode" name="pincode" required pattern="[0-9]{5}">
+  <div *ngIf="studentForm.submitted && studentForm.controls['pincode']?.invalid" class="error">
+    Pincode must be 5 digits.
+  </div>
 
   <button type="submit">Add Student</button>
 </form>

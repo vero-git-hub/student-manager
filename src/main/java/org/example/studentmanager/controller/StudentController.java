@@ -6,6 +6,7 @@ import org.example.studentmanager.model.Student;
 import org.example.studentmanager.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -46,8 +47,16 @@ public class StudentController {
 
     @Operation(summary = "Register new student", description = "Creates a record for a new student and saves it to the database.")
     @PostMapping
-    public Student addStudent(@Valid @RequestBody Student student) {
-        return studentService.addStudent(student);
+    public ResponseEntity<?> addStudent(@Valid @RequestBody Student student, BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            result.getFieldErrors().forEach(error ->
+                    errors.put(error.getField(), error.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(errors);
+        }
+        Student createdStudent = studentService.addStudent(student);
+        return ResponseEntity.ok(createdStudent);
     }
 
     @Operation(summary = "Update student data", description = "Updates data of an existing student in the database.")
