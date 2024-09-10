@@ -1,0 +1,9 @@
+<h2>Student List</h2>
+
+<ul>
+  <li *ngFor="let student of students">
+    <strong>{{ student.name }}</strong> - {{ student.contactDetails }} - {{ student.address }} - {{ student.pincode }}
+  </li>
+</ul>
+
+<p *ngIf="students.length === 0">No students found.</p>

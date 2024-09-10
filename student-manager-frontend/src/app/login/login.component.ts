@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,15 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
     this.authService.login(this.username, this.password).subscribe(
       response => {
+        console.log('JWT Token:', response.jwt);
         localStorage.setItem('access_token', response.jwt);
-        alert('Logged in successfully');
+        console.log('Токен сохранен в localStorage');
+        this.router.navigate(['/students']);
       },
       error => {
         alert('Login failed');
