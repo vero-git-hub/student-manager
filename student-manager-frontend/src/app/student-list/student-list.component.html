@@ -1,5 +1,7 @@
 <h2>Student List</h2>
 
+<button (click)="addStudent()">Add Student</button>
+
 <table mat-table [dataSource]="students" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Name </th>

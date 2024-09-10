@@ -52,4 +52,8 @@ export class StudentListComponent implements OnInit {
     }
   }
 
+  addStudent(): void {
+    this.router.navigate(['/add-student']);
+  }
+
 }
