@@ -1,0 +1,12 @@
+<h2>Student Details</h2>
+
+<div *ngIf="student">
+  <p><strong>Name:</strong> {{ student.name }}</p>
+  <p><strong>Contact Details:</strong> {{ student.contactDetails }}</p>
+  <p><strong>Address:</strong> {{ student.address }}</p>
+  <p><strong>Pincode:</strong> {{ student.pincode }}</p>
+</div>
+
+<p *ngIf="!student">Student not found.</p>
+
+<button mat-button [routerLink]="['/students']">Back to Student List</button>

@@ -4,12 +4,13 @@ import { MatTableModule } from '@angular/material/table';
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [MatTableModule, MatIconButton, MatIcon, NgIf],
+  imports: [MatTableModule, MatIconButton, MatIcon, NgIf, RouterLink],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
