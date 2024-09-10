@@ -3,12 +3,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'students', component: StudentListComponent },
   { path: 'students/:id', component: StudentDetailComponent },
+  { path: 'edit-student/:id', component: EditStudentComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];

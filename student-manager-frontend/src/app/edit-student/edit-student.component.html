@@ -1,0 +1,19 @@
+<h2>Edit Student</h2>
+
+<form (ngSubmit)="saveStudent()">
+  <label for="name">Name:</label>
+  <input id="name" [(ngModel)]="student.name" name="name" required>
+
+  <label for="contactDetails">Contact Details:</label>
+  <input id="contactDetails" [(ngModel)]="student.contactDetails" name="contactDetails" required>
+
+  <label for="address">Address:</label>
+  <input id="address" [(ngModel)]="student.address" name="address" required>
+
+  <label for="pincode">Pincode:</label>
+  <input id="pincode" [(ngModel)]="student.pincode" name="pincode" required>
+
+  <button type="submit">Save</button>
+</form>
+
+<button mat-button [routerLink]="['/students']">Back to Student List</button>

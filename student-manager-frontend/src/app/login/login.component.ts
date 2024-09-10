@@ -22,7 +22,7 @@ export class LoginComponent {
       response => {
         console.log('JWT Token:', response.jwt);
         localStorage.setItem('access_token', response.jwt);
-        console.log('Токен сохранен в localStorage');
+        console.log('The token is saved in localStorage');
         this.router.navigate(['/students']);
       },
       error => {

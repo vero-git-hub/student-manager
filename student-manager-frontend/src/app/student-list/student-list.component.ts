@@ -5,6 +5,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
@@ -16,7 +17,7 @@ import {RouterLink} from "@angular/router";
 export class StudentListComponent implements OnInit {
   students: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.getStudents();
@@ -34,7 +35,7 @@ export class StudentListComponent implements OnInit {
   }
 
   editStudent(student: any): void {
-    console.log('Editing student:', student);
+    this.router.navigate(['/edit-student', student.id]);
   }
 
   deleteStudent(student: any): void {
