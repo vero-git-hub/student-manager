@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgIf, NgFor } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {NgIf} from "@angular/common";
+
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [MatTableModule, MatIconButton, MatIcon, NgIf],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.css'
 })
@@ -28,4 +32,13 @@ export class StudentListComponent implements OnInit {
       }
     );
   }
+
+  editStudent(student: any): void {
+    console.log('Editing student:', student);
+  }
+
+  deleteStudent(student: any): void {
+    console.log('Deleting student:', student);
+  }
+
 }
